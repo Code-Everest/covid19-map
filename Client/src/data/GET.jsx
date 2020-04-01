@@ -1,3 +1,4 @@
+import keys from "./keys"
 export default function GET () {
 
 var unirest = require("unirest");
@@ -10,7 +11,7 @@ req.query({
 
 req.headers({
 	"x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
-	"x-rapidapi-key": "2fe8981911msh9a3fc283180dbddp104b1djsn792afa983bbb"
+	"x-rapidapi-key": keys.key
 });
 
 

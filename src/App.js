@@ -23,9 +23,11 @@ class App extends Component {
 
   render() {
     return (
+    
       <div className="App">
         <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
       </div>
+    
     );
   }
 }

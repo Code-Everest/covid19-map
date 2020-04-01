@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css'; /* optional for styling like the :hover pseudo-class */
 import USAMap from "react-usa-map";
+import GET from './data/GET';
 
 class App extends Component {
   /* mandatory */
@@ -20,6 +21,12 @@ class App extends Component {
       }
     };
   };
+
+  componentDidMount()
+  {
+GET()
+  }
+
 
   render() {
     return (

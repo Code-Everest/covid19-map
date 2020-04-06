@@ -19,7 +19,8 @@ req.end(function (res) {
 	if (res.error) throw new Error(res.error);
 
 	console.log(res.body.data.lastChecked);
-	
+
+	//this will make each state unique, instead of showing same states repeatedly"
 	console.log(...new Set(res.body.data.covid19Stats.map(e => e.province)))
 	
 })

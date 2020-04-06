@@ -22,19 +22,18 @@ class App extends Component {
     };
   };
 
-  componentDidMount()
-  {
-GET()
+  componentDidMount() {
+    GET()
   }
 
 
   render() {
     return (
-    
+
       <div className="App">
         <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
       </div>
-    
+
     );
   }
 }

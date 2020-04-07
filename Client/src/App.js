@@ -28,7 +28,7 @@ class App extends Component {
   componentDidMount() {
     GET.getAllStates()
     GET.getTotalCases()
-    GET.getOneStateCase()
+    GET.getOneStateCase("Delaware")
   }
 
 

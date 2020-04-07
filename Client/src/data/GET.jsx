@@ -30,11 +30,30 @@ export default
 				if (res.error) throw new Error(res.error);
 
 				//this will make each state unique, instead of showing same states repeatedly"
+
 				const confirmed = res.body.data.covid19Stats.map((e) => e.confirmed)
+				
 				const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
 				console.log(sum)
 			})
+		},
+
+		getOneStateCase() {
+			req.end(function (res) {
+				if (res.error) throw new Error(res.error);
+
+				//this will make each state unique, instead of showing same states repeatedly"
+
+				const States = res.body.data.covid19Stats.map((e) => e.province)
+				let filteredState = States.filter(name => name.includes('Delaware'))
+				let selectedState = new Set(filteredState)
+				
+				//const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+				console.log(...selectedState)
+			})
 		}
+
+
 	}
 
 

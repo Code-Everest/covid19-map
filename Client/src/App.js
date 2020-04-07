@@ -5,6 +5,7 @@ import USAMap from "react-usa-map";
 import GET from './data/GET';
 
 
+
 class App extends Component {
   /* mandatory */
   mapHandler = (event) => {
@@ -27,10 +28,12 @@ class App extends Component {
   componentDidMount() {
     GET.getAllStates()
     GET.getTotalCases()
+    GET.getOneStateCase()
   }
 
 
   render() {
+
     return (
 
       <div className="App">

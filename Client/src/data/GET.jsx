@@ -1,5 +1,4 @@
 import keys from "./keys"
-export default function GET () {
 
 var unirest = require("unirest");
 
@@ -14,15 +13,28 @@ req.headers({
 	"x-rapidapi-key": keys.key
 });
 
+export default
+	{
+		getAllStates() {
+			req.end(function (res) {
+				if (res.error) throw new Error(res.error);
 
-req.end(function (res) {
-	if (res.error) throw new Error(res.error);
+				//this will make each state unique, instead of showing same states repeatedly"
+				const States = new Set(res.body.data.covid19Stats.map((e) => e.province))
+				console.log(...States)
+			})
+		},
 
-	console.log(res.body.data.lastChecked);
+		getTotalCases() {
+			req.end(function (res) {
+				if (res.error) throw new Error(res.error);
 
-	//this will make each state unique, instead of showing same states repeatedly"
-	console.log(...new Set(res.body.data.covid19Stats.map(e => e.province)))
-	
-})
+				//this will make each state unique, instead of showing same states repeatedly"
+				const confirmed = res.body.data.covid19Stats.map((e) => e.confirmed)
+				const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+				console.log(sum)
+			})
+		}
+	}
 
-}
+

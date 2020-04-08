@@ -38,19 +38,19 @@ export default
 			})
 		},
 
-		getOneStateCase() {
+		getOneStateCase(State) {
 			req.end(function (res) {
 				if (res.error) throw new Error(res.error);
 				
 				const Data = res.body.data.covid19Stats
 
 				const filteredState = Data.filter(function (el) {
-					return el.province == "Alabama"
+					return el.province === State
 				  });
 				const confirmed = filteredState.map(e => e.confirmed)
 				const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
 
-				console.log("Total Cases for Alabama: " + totalCasesforState)
+				console.log("Total Cases for " + State + ": " + totalCasesforState)
 				
 			})
 		}

@@ -28,7 +28,7 @@ class App extends Component {
   componentDidMount() {
     GET.getAllStates()
     GET.getTotalCases()
-    GET.getOneStateCase("Delaware")
+    GET.getOneStateCase("Alabama")
   }
 
 

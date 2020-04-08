@@ -38,23 +38,20 @@ export default
 			})
 		},
 
-		getOneStateCase(State) {
+		getOneStateCase() {
 			req.end(function (res) {
 				if (res.error) throw new Error(res.error);
-
-				//this will make each state unique, instead of showing same states repeatedly"
-
-				const States = res.body.data.covid19Stats.map((e) => e.province)
-				let filteredState = States.filter(name => name.includes(State))
-				let selectedState = new Set(filteredState)
-
-				const confirmed = res.body.data.covid19Stats.map((e) => e.confirmed)
-
 				
-				//const filterStateNumbers =res.body.data.covid19Stats.map(o => ({province: o.States}))
+				const Data = res.body.data.covid19Stats
+
+				var newArray = Data.filter(function (el) {
+					return el.province == "Alabama"
+				  });
+				const confirmed = newArray.map(e => e.confirmed)
+				const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+
+				console.log(sum)
 				
-				//console.log(filterStateNumbers)
-				//filterStateNumbers.forEach(element => console.log(element));
 			})
 		}
 

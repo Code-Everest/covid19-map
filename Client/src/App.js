@@ -6,7 +6,13 @@ import GET from './data/GET';
 
 
 
+
 class App extends Component {
+
+state = {TotalCases : ""
+}
+
+
   /* mandatory */
   mapHandler = (event) => {
     alert(event.target.dataset.name);
@@ -25,15 +31,21 @@ class App extends Component {
     };
   };
 
+  calculatePercentage = (num1, num2) =>{
+    return console.log(num1*100/num2)
+  }
+ 
+
+    
   componentDidMount() {
-    GET.getAllStates()
     GET.getTotalCases()
+    GET.getAllStates()
     GET.getOneStateCase("Alabama")
   }
 
 
   render() {
-
+    
     return (
 
       <div className="App">

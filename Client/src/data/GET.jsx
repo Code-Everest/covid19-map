@@ -16,7 +16,8 @@ req.headers({
 
 export default
 	{
-		getAllStates() {
+
+		getAllStates () {
 			req.end(function (res) {
 				if (res.error) throw new Error(res.error);
 
@@ -36,6 +37,7 @@ export default
 				
 				console.log("Total Cases: " + totalCases)
 			})
+			
 		},
 
 		getOneStateCase(State) {
@@ -54,6 +56,8 @@ export default
 				
 			})
 		}
+
+		
 
 
 	}

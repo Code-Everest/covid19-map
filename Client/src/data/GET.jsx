@@ -30,11 +30,11 @@ export default
 			req.end(function (res) {
 				if (res.error) throw new Error(res.error);
 
-				const confirmed = res.body.data.covid19Stats.map((e) => e.confirmed)
+				const confirmedCases = res.body.data.covid19Stats.map((e) => e.confirmed)
 				
-				const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+				const totalCases = confirmedCases.reduce((partial_sum, a) => partial_sum + a, 0)
 				
-				console.log(sum)
+				console.log("Total Cases: " + totalCases)
 			})
 		},
 
@@ -44,13 +44,13 @@ export default
 				
 				const Data = res.body.data.covid19Stats
 
-				var newArray = Data.filter(function (el) {
+				const filteredState = Data.filter(function (el) {
 					return el.province == "Alabama"
 				  });
-				const confirmed = newArray.map(e => e.confirmed)
-				const sum = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+				const confirmed = filteredState.map(e => e.confirmed)
+				const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
 
-				console.log(sum)
+				console.log("Total Cases for Alabama: " + totalCasesforState)
 				
 			})
 		}

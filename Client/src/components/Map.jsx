@@ -22,7 +22,7 @@ class Map extends Component {
   /* optional customization of filling per state and calling custom callbacks per state */
   statesCustomConfig = () => {
     return {
-      "NJ": {
+      "Alabama": {
         fill: "navy",
         clickHandler: (event) => console.log('Custom handler for NJ', event.target.dataset)
       },

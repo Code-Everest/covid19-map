@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Map.css'; /* optional for styling like the :hover pseudo-class */
-import USAMap from "react-usa-map";
+import USAMap from "./USAMap";
 
 import GET from "../data/GET";
 

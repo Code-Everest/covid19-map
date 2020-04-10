@@ -62,7 +62,7 @@ USAMap.defaultProps = {
   onClick: () => {},
   width: 959,
   height: 593,
-  defaultFill: "#D3D3D3",
+  defaultFill: "#e1e3d1git",
   title: "Blank US states map",
   customize: {}
 };

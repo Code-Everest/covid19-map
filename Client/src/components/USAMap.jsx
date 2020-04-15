@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import data from "../data/usa-map-dimensions";
 import USAState from "./USAState";
 
+
+
+
 class USAMap extends React.Component {
+
+ 
 
   clickHandler = (stateAbbreviation) => {
     this.props.onClick(stateAbbreviation);
@@ -27,25 +32,31 @@ class USAMap extends React.Component {
   buildPaths = () => {
     let paths = [];
     for (let stateKey in data) {
+      //data[stateKey].name = this.state.Provinces
       const path = <USAState key={stateKey} stateName={data[stateKey].name} dimensions={data[stateKey]["dimensions"]} state={stateKey} fill={this.fillStateColor(stateKey)} onClickState={this.stateClickHandler(stateKey)} />
       paths.push(path);
     };
     return paths;
+  
   };
 
-  render() {
+  
+
+  mapReturn = () => {
     return (
       <svg className="us-state-map" xmlns="http://www.w3.org/2000/svg" width={this.props.width} height={this.props.height} viewBox="0 0 959 593">
         <title>{this.props.title}</title>
         <g className="outlines">
           {this.buildPaths()}
-          <g className="DC state">
-            <path className="DC1" fill={this.fillStateColor("DC1")} d="M801.8,253.8 l-1.1-1.6 -1-0.8 1.1-1.6 2.2,1.5z" />
-            <circle className="DC2" onClick={this.clickHandler} data-name={"DC"} fill={this.fillStateColor("DC2")} stroke="#FFFFFF" strokeWidth="1.5" cx="801.3" cy="251.8" r="5" opacity="1" />
-          </g>
         </g>
       </svg>
     );
+  }
+
+  render() {
+    return (
+      this.mapReturn()
+    )
   }
 }
 
@@ -59,10 +70,10 @@ USAMap.propTypes = {
 };
 
 USAMap.defaultProps = {
-  onClick: () => {},
+  onClick: () => { },
   width: 959,
   height: 593,
-  defaultFill: "#e1e3d1git",
+  defaultFill: "#e1e3d1",
   title: "Blank US states map",
   customize: {}
 };

@@ -53,6 +53,7 @@ export default
 				const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
 
 				console.log("Total Cases for " + State + ": " + totalCasesforState)
+				console.log(confirmed)
 				
 			})
 		}

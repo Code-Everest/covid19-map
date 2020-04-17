@@ -2,29 +2,28 @@ import React, { Component } from 'react';
 import './Map.css'; /* optional for styling like the :hover pseudo-class */
 import USAMap from "./USAMap";
 import keys from "../data/keys"
+import data from "../data/usa-map-dimensions";
 
 //import GET from "../data/GET";
 
 var unirest = require("unirest");
-
 var req = unirest("GET", "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats");
-
 req.query({
   "country": "USA"
 });
-
 req.headers({
   "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
   "x-rapidapi-key": keys.key
 });
 
+var array = ["Alabama", "CA", "NY"]
 
 class Map extends Component {
 
   state = {
-    Provinces: "Alabama",
-    TotalCases: '',
-
+    Provinces: "",
+    Provinces2: { States:["Alabama"]},
+    newstates:""
   };
 
   /* mandatory */
@@ -32,15 +31,18 @@ class Map extends Component {
     alert(event.target.dataset.name);
   };
 
+
+
   /* optional customization of filling per state and calling custom callbacks per state */
+
+
   statesCustomConfig = () => {
-    var Provinces = this.state.Provinces
+
     return {
-      [Provinces]: {
-        fill: "navy",
-        // clickHandler: (event) => console.log('Custom handler for NJ', event.target.dataset)
+      "Alabama": {
+        fill: "BLUE"
       }
-    };
+    }
   };
 
   calculatePercentage = (num1, num2) => {
@@ -61,19 +63,39 @@ class Map extends Component {
     req.end(res => {
       if (res.error) throw new Error(res.error);
 
+      const CovidData = res.body.data.covid19Stats
+
+      
+        this.setState({newstates : [{data}].name  }) 
+      
+     // console.log(this.state.newstates)
+
       //STATES
-      const States = new Set(res.body.data.covid19Stats.map(e => e.province))
+      const States = "Alabama"
       this.setState({ Provinces: States })
 
       //TOTAL CASES
-      const confirmedCases = res.body.data.covid19Stats.map((e) => e.confirmed)
+      const confirmedCases = CovidData.map((e) => e.confirmed)
       const totalCases = confirmedCases.reduce((partial_sum, a) => partial_sum + a, 0)
       this.setState({ TotalCases: totalCases })
 
 
 
-      console.log("Total Cases: " + this.state.TotalCases)
-      console.log(...this.state.Provinces)
+      const State = "Kentucky"
+      const filteredState = CovidData.filter(function (el) {
+        return el.province === State
+      });
+      const confirmed = filteredState.map(e => e.confirmed)
+      const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+
+      //console.log("Total Cases for " + State + ": " + totalCasesforState)
+      //console.log(filteredState)
+
+
+
+
+      console.log("Total Cases: " + totalCasesforState)
+      console.log(this.state.Provinces)
     }
     )
 
@@ -86,7 +108,7 @@ class Map extends Component {
   render() {
     return (
       <div className="App">
-        <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
+        <USAMap customize= {this.statesCustomConfig()} onClick={this.mapHandler} />
       </div>
     )
 

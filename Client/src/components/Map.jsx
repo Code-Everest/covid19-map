@@ -17,50 +17,54 @@ req.headers({
 });
 
 var array = ["Alabama", "CA", "NY"]
+var color = "Blue"
+
+
 
 class Map extends Component {
 
   state = {
-    Provinces: "",
-    Provinces2: {
-      States: {
-        Alabama: "",
-        Tennessee: ""
+    States: {
+      Kentucky: {
+        name: "Kentucky",
+        totalcases: "",
+        color: "Blue"
       },
-      newstates: 1
-    };
-
-    /* mandatory */
-    mapHandler = (event) => {
-      alert(event.target.dataset.name);
-    };
-
-    /* optional customization of filling per state and calling custom callbacks per state */
-
-    statesCustomConfig = () => {
-
-
-      return {
-        "Alabama": {
-          fill: "BLUE"
-        },
-        "CA": {
-          fill: "BLUE"
-        }
+      NewKentucky: {
+        name: "Kentucky",
+        totalcases: "",
+        color: "Blue"
       }
-    };
-
-    calculatePercentage = (num1, num2) => {
-      return console.log(num1 * 100 / num2)
     }
+  }
+
+
+  /* mandatory */
+  mapHandler = (event) => {
+    alert(event.target.dataset.name);
+  }
+
+  /* optional customization of filling per state and calling custom callbacks per state */
+
+  statesCustomConfig = () => {
+    return {
+      "KY": {
+        fill: "Blue"
+      },
+    }
+  }
+
+  calculatePercentage = (num1, num2) => {
+    return console.log(num1 * 100 / num2)
+  }
 
   returnMap = () => {
-      return (
-        <div className="App">
-          <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
-        </div>
-      )
-    }
+    return (
+      <div className="App">
+        <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
+      </div>
+    )
+  }
 
 
 
@@ -68,69 +72,105 @@ class Map extends Component {
 
   componentDidMount() {
 
-      req.end(res => {
-        if (res.error) throw new Error(res.error);
+    req.end(res => {
+      if (res.error) throw new Error(res.error);
 
-        const CovidData = res.body.data.covid19Stats
+      const CovidData = res.body.data.covid19Stats
 
-        this.setState({ newstates: [{ data }].name })
+      //STATES
+      const States = "Alabama"
+      this.setState({ Provinces: States })
 
-        // console.log(this.state.newstates)
-
-        //STATES
-        const States = "Alabama"
-        this.setState({ Provinces: States })
-
-        //TOTAL CASES
-        const confirmedCases = CovidData.map((e) => e.confirmed)
-        const totalCases = confirmedCases.reduce((partial_sum, a) => partial_sum + a, 0)
-        this.setState({ TotalCases: totalCases })
+      //TOTAL CASES
+      const confirmedCases = CovidData.map((e) => e.confirmed)
+      const totalCases = confirmedCases.reduce((partial_sum, a) => partial_sum + a, 0)
+      this.setState({ TotalCases: totalCases })
 
 
 
-        const State = ["Kentucky", "Alabama"]
+      const State = ["Kentucky", "Alabama"]
+
+      const filteredState = CovidData.filter(function (el) {
+        return el.province === State
+      });
+      const confirmed = filteredState.map(e => e.confirmed)
+      const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
+
+      State.forEach(function (e) {
         const filteredState = CovidData.filter(function (el) {
-          return el.province === State
+          return el.province === e
         });
         const confirmed = filteredState.map(e => e.confirmed)
         const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
 
-        State.forEach(function (e) {
-          const filteredState = CovidData.filter(function (el) {
-            return el.province === e
-          });
-          const confirmed = filteredState.map(e => e.confirmed)
-          const totalCasesforState = confirmed.reduce((partial_sum, a) => partial_sum + a, 0)
-          console.log(totalCasesforState)
-
-        })
-
-        //console.log("Total Cases for " + State + ": " + totalCasesforState)
-        //console.log(filteredState)
+        const matchedStates = State.filter(function (el) {
+          return el.state === e
+        });
 
 
+        console.log(totalCasesforState)
 
+      })
 
-        console.log("Total Cases: " + totalCasesforState)
-        //console.log(this.state.Provinces)
+      //console.log("Total Cases for " + State + ": " + totalCasesforState)
+      // console.log(this.state)
+
+      var myObject = this.state
+      var arr = [];
+      for (var key in myObject) {
+        arr.push(myObject[key]);
       }
-      )
 
-      this.returnMap()
+      this.setState({
+        Bubble: {
+          Kentucky: {
+            name: "newname"
+          }
 
+
+
+        }
+      })
+      console.log(this.state.Bubble)
+
+      console.log(this.state.NewKentucky)
+      console.log(arr.States)
+
+      var myObject = data
+      var arr2 = [];
+      for (var key in myObject) {
+        arr2.push(myObject[key]);
+      }
+
+      const listarr2 = arr2.map(e => e.name)
+
+      this.setState( {[listarr2]: {
+        state:{
+          "aa":"aa"
+        }
+
+      } })
+
+      console.log(this.state)
 
     }
+    )
+
+    this.returnMap()
+
+
+  }
 
 
   render() {
-      return (
-        <div className="App">
-          <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
-        </div>
-      )
+    return (
+      <div className="App">
+        <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
+      </div>
+    )
 
 
-    }
   }
+}
 
-  export default Map;
+export default Map;

@@ -49,7 +49,7 @@ class Map extends Component {
   statesCustomConfig = () => {
     return {
       "KY": {
-        fill: "Blue"
+        fill: this.state.States.Kentucky.color
       },
     }
   }
@@ -106,10 +106,7 @@ class Map extends Component {
         const matchedStates = State.filter(function (el) {
           return el.state === e
         });
-
-
         console.log(totalCasesforState)
-
       })
 
       //console.log("Total Cases for " + State + ": " + totalCasesforState)
@@ -126,11 +123,9 @@ class Map extends Component {
           Kentucky: {
             name: "newname"
           }
-
-
-
         }
       })
+
       console.log(this.state.Bubble)
 
       console.log(this.state.NewKentucky)
@@ -148,7 +143,6 @@ class Map extends Component {
         state:{
           "aa":"aa"
         }
-
       } })
 
       console.log(this.state)

@@ -47,10 +47,11 @@ class Map extends Component {
   /* optional customization of filling per state and calling custom callbacks per state */
 
   statesCustomConfig = () => {
+    var KY = {fill: this.state.States.Kentucky.color}
+
     return {
-      "KY": {
-        fill: this.state.States.Kentucky.color
-      },
+      "KY": KY,
+      "NY": KY
     }
   }
 

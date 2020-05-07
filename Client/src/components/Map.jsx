@@ -25,7 +25,7 @@ class Map extends Component {
 
   state = {
     States: {
-      Kentucky: {
+      KY: {
         name: "Kentucky",
         totalcases: "",
         color: "Blue"
@@ -47,7 +47,8 @@ class Map extends Component {
   /* optional customization of filling per state and calling custom callbacks per state */
 
   statesCustomConfig = () => {
-    var KY = {fill: this.state.States.Kentucky.color}
+    var KY = {fill: this.state.States.KY.color}
+    var NY = {fill: this.state.States.NY.color}
 
     return {
       "KY": KY,
